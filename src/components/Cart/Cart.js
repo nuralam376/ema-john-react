@@ -3,7 +3,7 @@ import React from "react";
 const Cart = (props) => {
 	const { cart } = props;
 	const productsPrice = cart.reduce(
-		(total, product) => total + product.price,
+		(total, product) => total + product.price * product.quantity,
 		0
 	);
 
@@ -25,10 +25,11 @@ const Cart = (props) => {
 	return (
 		<div>
 			<h4>Order Summary - {cart.length}</h4>
-			<p>Products Price : {numberPrice(productsPrice)}</p>
-			<p>Shipping : {numberPrice(shipping)}</p>
-			<p>Tax : {numberPrice(tax)}</p>
-			<p>Total : {numberPrice(total)}</p>
+			<p>Products Price : ${numberPrice(productsPrice)}</p>
+			<p>Shipping : ${numberPrice(shipping)}</p>
+			<p>Tax : ${numberPrice(tax)}</p>
+			<p>Total : ${numberPrice(total)}</p>
+			{props.children}
 		</div>
 	);
 };
