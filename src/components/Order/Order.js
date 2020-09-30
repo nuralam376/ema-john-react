@@ -8,7 +8,7 @@ import {
 import fakeData from "../../fakeData";
 import OrderItem from "../OrderItem/OrderItem";
 import Cart from "../Cart/Cart";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import confirmImage from "../../images/giphy.gif";
 
 const Order = () => {
@@ -21,10 +21,10 @@ const Order = () => {
 		removeFromDatabaseCart(productKey);
 	};
 
-	const handlePlaceOrder = () => {
-		setCart([]);
-		setOrderPlaced(true);
-		processOrder();
+	const history = useHistory();
+
+	const handleCheckout = () => {
+		history.push(`/shipment`);
 	};
 
 	useEffect(() => {
@@ -60,11 +60,9 @@ const Order = () => {
 			<div className="cart-container">
 				{orderPlaced === false && (
 					<Cart cart={cart}>
-						<Link to="/order">
-							<button onClick={handlePlaceOrder} className="main-button">
-								Place Order
-							</button>
-						</Link>
+						<button onClick={handleCheckout} className="main-button">
+							Proceed to Checkout
+						</button>
 					</Cart>
 				)}
 			</div>
