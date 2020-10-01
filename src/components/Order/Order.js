@@ -30,7 +30,7 @@ const Order = () => {
     const products = getDatabaseCart();
     const productKeys = Object.keys(products);
 
-    fetch("http://localhost:5000/cartproducts", {
+    fetch("https://afternoon-woodland-77284.herokuapp.com/cartproducts", {
       method: "POST",
       body: JSON.stringify(productKeys),
       headers: {

@@ -8,7 +8,9 @@ const ProductDetail = () => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:5000/products/" + productkey)
+    fetch(
+      "https://afternoon-woodland-77284.herokuapp.com/products/" + productkey
+    )
       .then((res) => res.json())
       .then((product) => setProduct(product));
   }, [productkey]);

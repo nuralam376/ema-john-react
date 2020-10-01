@@ -19,7 +19,7 @@ const Shipment = () => {
     console.log("Orders", orders);
 
     if (orders) {
-      fetch("http://localhost:5000/orders", {
+      fetch("https://afternoon-woodland-77284.herokuapp.com/orders", {
         method: "POST",
         body: JSON.stringify(orders),
         headers: {
