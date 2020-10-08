@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import {
   getDatabaseCart,
   removeFromDatabaseCart,
-  processOrder,
 } from "../../utilities/databaseManager";
 import OrderItem from "../OrderItem/OrderItem";
 import Cart from "../Cart/Cart";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import confirmImage from "../../images/giphy.gif";
 
 const Order = () => {
   const [cart, setCart] = useState([]);
-  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderPlaced] = useState(false);
 
   const removeFromCart = (productKey) => {
     const newCart = cart.filter((product) => product.key !== productKey);
@@ -30,7 +29,7 @@ const Order = () => {
     const products = getDatabaseCart();
     const productKeys = Object.keys(products);
 
-    fetch("https://afternoon-woodland-77284.herokuapp.com/cartproducts", {
+    fetch("http://localhost:5000/cartproducts", {
       method: "POST",
       body: JSON.stringify(productKeys),
       headers: {

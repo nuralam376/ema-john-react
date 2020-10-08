@@ -6,18 +6,25 @@ import Product from "../Product/Product";
 const ProductDetail = () => {
   const { productkey } = useParams();
   const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  document.title = "Product Detail";
 
   useEffect(() => {
-    fetch(
-      "https://afternoon-woodland-77284.herokuapp.com/products/" + productkey
-    )
+    fetch("http://localhost:5000/products/" + productkey)
       .then((res) => res.json())
-      .then((product) => setProduct(product));
+      .then((product) => {
+        setProduct(product);
+        setLoading(false);
+      });
   }, [productkey]);
 
   return (
     <div>
-      <Product showAddToCart={false} product={product}></Product>
+      {loading ? (
+        "Loading...."
+      ) : (
+        <Product showAddToCart={false} product={product}></Product>
+      )}
     </div>
   );
 };

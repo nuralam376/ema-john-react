@@ -12,18 +12,22 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [search, setSearch] = useState("");
+
+  document.title = "Shop More";
 
   useEffect(() => {
-    fetch("https://afternoon-woodland-77284.herokuapp.com/products")
+    console.log(search);
+    fetch("http://localhost:5000/products?search=" + search)
       .then((res) => res.json())
       .then((data) => setProducts(data));
-  }, []);
+  }, [search]);
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const savedProductKeys = Object.keys(savedCart);
 
-    fetch("https://afternoon-woodland-77284.herokuapp.com/cartproducts/", {
+    fetch("http://localhost:5000/cartproducts/", {
       method: "POST",
       body: JSON.stringify(savedProductKeys),
       headers: {
@@ -39,6 +43,10 @@ const Shop = () => {
         setCart(newProducts);
       });
   }, []);
+
+  const handleBlur = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handleProductClick = (product) => {
     const sameProduct = cart.find((pd) => pd.key === product.key);
@@ -59,7 +67,14 @@ const Shop = () => {
   };
   return (
     <div className="shop-container">
+      {products.length === 0 && <p>Loading.....</p>}
       <div className="product-container">
+        <input
+          type="text"
+          className="form-control w-50 mt-3 mx-auto"
+          placeholder="Product Search"
+          onBlur={handleBlur}
+        />
         {products.map((product) => (
           <Product
             showAddToCart={true}
